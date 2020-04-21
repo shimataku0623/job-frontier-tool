@@ -1,16 +1,17 @@
 import time
 import random
 import search_company
+import export
 import requests
 from bs4 import BeautifulSoup
 
 # 該当企業の読み込み（別ファイルで取得した方がいいかも）ここも含めてループに組み込む
 # 重複を避けたいならset使えば良さげ
 idlist = search_company.getidlist()
-
+i=1
 
 for id_num in idlist:
-
+    i += 1
     # 出力変数の初期化
     company,address,url,amount,employees = "","","","",""
 
@@ -53,6 +54,9 @@ for id_num in idlist:
                 amount = item.find("dd").text.strip()
             if "従業員数" in item.text:
                 employees = item.find("dd").text.strip()
+
+    # sheet出力
+    export.exportsheet(i,company,address,url,amount,employees)
 
     # 出力
     print("企業名:",company)

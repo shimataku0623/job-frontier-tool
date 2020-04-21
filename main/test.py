@@ -21,6 +21,5 @@ for i in range(1,5):
     print()
     time.sleep(1)
 
-
 # idlist = set(idlist_dupli)
 print("idlist:",idlist)

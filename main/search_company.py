@@ -22,16 +22,13 @@ def getidlist():
 
         # 企業別ページをcompanyidに詰める
         companyid = soup.findAll("a", class_="btnJob03 _JobListToDetail")
+        time.sleep(1)
 
         for id in companyid:
             idlist.append(id.attrs['href'][54:64])
-    print(i)
-    print()
-    time.sleep(1)
-
-
+    
     # idlist = set(idlist_dupli)
-    print("idlist:",idlist)
-    print()
+    # print("idlist:",idlist)
+    # print()
 
     return idlist
