@@ -1,21 +1,26 @@
 import requests
+import time
+import loop_dif
 from bs4 import BeautifulSoup
 	
-#r = requests.get("https://doda.jp/DodaFront/View/JobSearchDetail/j_jid__3003824339/-fm__list/-tp__1/-mtmd__0/?from=list_item")
-r = requests.get("https://doda.jp/DodaFront/View/JobSearchDetail/j_jid__3003993874/-tab__jd/-fm__jobdetail/-mpsc_sid__10/-tp__1/")
-	
-soup = BeautifulSoup(r.content, "html.parser")
-#souphead = BeautifulSoup(r, "html.parser")
+idlist=list()
 
-#企業名取得
-company = soup.find(class_ = "job_title")
+for i in range(1,5):
+    # 取得URL
+    url = "https://doda.jp/DodaFront/View/JobSearchList.action?pic=0&preBtn=3&ds=1&ar=3&oc=0321M&so=50&tp=1&page=" + str(i)
+    r = requests.get(url)
+    soup = BeautifulSoup(r.content, "html.parser")
+
+    # 企業別ページをcompanyidに詰める
+    companyid = soup.findAll("a", class_="btnJob03 _JobListToDetail")
+
+    for id in companyid:
+        idlist.append(id.attrs['href'][54:64])
+
+    print(i)
+    print()
+    time.sleep(1)
 
 
-#ニュース一覧のテキストのみ抽出
-# print(soup.find(id="company_profile_table"))
-table = soup.find("table",{"id":"company_profile_tablea"})
-search_num = 120
-rows = -(-int(search_num) // 50)
-
-#if '' in table.text:
-print(rows)
+# idlist = set(idlist_dupli)
+print("idlist:",idlist)
