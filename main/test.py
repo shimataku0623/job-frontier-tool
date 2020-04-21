@@ -14,7 +14,8 @@ company = soup.find(class_ = "job_title")
 #ニュース一覧のテキストのみ抽出
 # print(soup.find(id="company_profile_table"))
 table = soup.find("table",{"id":"company_profile_tablea"})
-rows = table.findAll("tr")
+search_num = 120
+rows = -(-int(search_num) // 50)
 
 #if '' in table.text:
 print(rows)

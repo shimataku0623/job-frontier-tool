@@ -1,4 +1,5 @@
 import time
+import random
 import search_company
 import requests
 from bs4 import BeautifulSoup
@@ -60,4 +61,4 @@ for id_num in idlist:
     print("売り上げ:",amount)
     print("従業員数:",employees)
     print()
-    time.sleep(2)
+    time.sleep(random.randint(1,2))
