@@ -5,8 +5,10 @@ import export
 import requests
 from bs4 import BeautifulSoup
 
+# 新シートの作成
+d_today = export.createsheet()
+
 # 該当企業の読み込み（別ファイルで取得した方がいいかも）ここも含めてループに組み込む
-# 重複を避けたいならset使えば良さげ
 idlist = search_company.getidlist()
 i=1
 
@@ -56,7 +58,7 @@ for id_num in idlist:
                 employees = item.find("dd").text.strip()
 
     # sheet出力
-    export.exportsheet(i,company,address,url,amount,employees)
+    export.exportsheet(i,company,address,url,amount,employees,d_today)
 
     # 出力
     print("企業名:",company)
@@ -65,4 +67,4 @@ for id_num in idlist:
     print("売り上げ:",amount)
     print("従業員数:",employees)
     print()
-    time.sleep(random.randint(1,2))
+    time.sleep(random.randint(1,3))

@@ -1,25 +1,25 @@
-import requests
-import time
-import loop_dif
-from bs4 import BeautifulSoup
+import gspread
+import json
 	
-idlist=list()
+from oauth2client.service_account import ServiceAccountCredentials 
 
-for i in range(1,5):
-    # 取得URL
-    url = "https://doda.jp/DodaFront/View/JobSearchList.action?pic=0&preBtn=3&ds=1&ar=3&oc=0321M&so=50&tp=1&page=" + str(i)
-    r = requests.get(url)
-    soup = BeautifulSoup(r.content, "html.parser")
+#2つのAPIを記述しないとリフレッシュトークンを3600秒毎に発行し続けなければならない
+scope = ['https://spreadsheets.google.com/feeds','https://www.googleapis.com/auth/drive']
 
-    # 企業別ページをcompanyidに詰める
-    companyid = soup.findAll("a", class_="btnJob03 _JobListToDetail")
+#認証情報設定
+#ダウンロードしたjsonファイル名をクレデンシャル変数に設定（秘密鍵、Pythonファイルから読み込みしやすい位置に置く）
+credentials = ServiceAccountCredentials.from_json_keyfile_name('job-search-274909-9959e9be41a1.json', scope)
 
-    for id in companyid:
-        idlist.append(id.attrs['href'][54:64])
+#OAuth2の資格情報を使用してGoogle APIにログインします。
+gc = gspread.authorize(credentials)
 
-    print(i)
-    print()
-    time.sleep(1)
+#共有設定したスプレッドシートキーを変数[SPREADSHEET_KEY]に格納する。
+SPREADSHEET_KEY = '1ERDY6F1mhIz1okJvXW8JHF92tq8TiSUqyvouGvXlvII'
 
-# idlist = set(idlist_dupli)
-print("idlist:",idlist)
+#共有設定したスプレッドシートのシート1を開く
+workbook = gc.open_by_key(SPREADSHEET_KEY)
+worksheet = workbook.worksheet('test')
+
+#更新
+header_list = ["会社名test","住所","URL","売上高","社員数"]
+worksheet.append_row(header_list)
