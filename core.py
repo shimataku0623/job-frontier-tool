@@ -61,10 +61,10 @@ for id_num in idlist:
     export.exportsheet(i,company,address,url,amount,employees,d_today)
 
     # 出力
-    print("企業名:",company)
-    print("住所:",address)
-    print("URL:",url)
-    print("売り上げ:",amount)
-    print("従業員数:",employees)
-    print()
+    # print("企業名:",company)
+    # print("住所:",address)
+    # print("URL:",url)
+    # print("売り上げ:",amount)
+    # print("従業員数:",employees)
+    # print()
     time.sleep(random.randint(1,3))
