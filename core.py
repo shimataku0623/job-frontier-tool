@@ -1,9 +1,13 @@
+# -*- coding: utf-8 -*-
+
 import time
 import random
 import search_company
 import export
 import requests
 from bs4 import BeautifulSoup
+
+print("doda検索中(800件前後予想：1.5h)")
 
 # 新シートの作成
 d_today = export.createsheet()

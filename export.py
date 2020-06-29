@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import gspread
 import json
 import datetime
@@ -24,7 +25,7 @@ SPREADSHEET_KEY = '1pUWGAsSa11nn0XpMvhDMWATO3ztasDsg9Ud9LNuXwOs'
 workbook = gc.open_by_key(SPREADSHEET_KEY)
 
 def createsheet():
-    d_today = str(datetime.date.today())
+    d_today = str(datetime.date.today()) + "_doda"
     workbook.add_worksheet(title=d_today, rows=10000, cols=10)
     return d_today
 
